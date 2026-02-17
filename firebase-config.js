@@ -15,18 +15,34 @@
  */
 
 // Replace this with your Firebase config
+// Firebase Configuration for disk-space-rental-v3 project
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY_HERE",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyDrExample_REPLACE_WITH_YOUR_API_KEY",
+  authDomain: "disk-space-rental-v3.firebaseapp.com",
+  projectId: "disk-space-rental-v3",
+  storageBucket: "disk-space-rental-v3.appspot.com",
+  messagingSenderId: "123456789",
+  appId: "1:123456789:web:abcdef123456",
+  measurementId: "G-XXXXXXXXXX"
 };
 
 // Initialize Firebase
-// Uncomment this after adding your config
-// firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
+
+// Initialize Firebase services
+const db = firebase.firestore();
+const auth = firebase.auth();
+const storage = firebase.storage();
+
+// Enable offline persistence for Firestore
+db.enablePersistence()
+  .catch((err) => {
+    if (err.code == 'failed-precondition') {
+      console.log('Offline persistence failed: multiple tabs open');
+    } else if (err.code == 'unimplemented') {
+      console.log('Offline persistence not available in this browser');
+    }
+  });
 
 // Export for use in other files
 // window.firebaseConfig = firebaseConfig;
