@@ -17,13 +17,10 @@
 // Replace this with your Firebase config
 // Firebase Configuration for disk-space-rental-v3 project
 const firebaseConfig = {
-  apiKey: "AIzaSyDrExample_REPLACE_WITH_YOUR_API_KEY",
-  authDomain: "disk-space-rental-v3.firebaseapp.com",
+  apiKey: "AIzaSyCRVicMcT_hLFJv85tGWk6nGZzt7F5fa10",  authDomain: "disk-space-rental-v3.firebaseapp.com",
   projectId: "disk-space-rental-v3",
-  storageBucket: "disk-space-rental-v3.appspot.com",
-  messagingSenderId: "123456789",
-  appId: "1:123456789:web:abcdef123456",
-  measurementId: "G-XXXXXXXXXX"
+  storageBucket: "disk-space-rental-v3.firebasestorage.app",  messagingSenderId: "123456789",
+    appId: "1:870910242820:web:0b41f48ec80c88c2e18551"
 };
 
 // Initialize Firebase
