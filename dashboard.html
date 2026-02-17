@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Disk Space Rental</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+          </svg>
+        </div>
+        Disk Space Rental
+      </a>
+      <ul class="nav-links">
+        <li><a href="dashboard.html" class="active">Dashboard</a></li>
+        <li><a href="upload.html">Upload</a></li>
+        <li><a href="files.html">My Files</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="index.html" class="btn btn-ghost" onclick="logout()">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Dashboard -->
+  <div class="dashboard">
+    <div class="container">
+      <!-- View Toggle -->
+      <div class="view-toggle">
+        <button class="active" onclick="switchView('renter')" id="renterToggle">Renter View</button>
+        <button onclick="switchView('provider')" id="providerToggle">Provider View</button>
+      </div>
+      <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 24px;">Toggle to switch between Renter and Provider dashboards (demo only)</p>
+
+      <!-- Renter Dashboard -->
+      <div id="renterDashboard">
+        <div class="dashboard-header">
+          <h1 class="dashboard-title">Renter Dashboard</h1>
+          <p class="dashboard-subtitle">Manage your storage rentals and files</p>
+          <div style="margin-top: 16px;">
+            <a href="upload.html" class="btn btn-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+              Upload Files
+            </a>
+            <a href="files.html" class="btn btn-secondary" style="margin-left: 8px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+              </svg>
+              My Files
+            </a>
+          </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-header">
+              <span class="stat-label">Active Plans</span>
+              <div class="stat-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                  <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                  <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                  <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                </svg>
+              </div>
+            </div>
+            <div class="stat-value">3</div>
+            <div class="stat-change">↗ 2 new this month</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <span class="stat-label">Total Storage</span>
+              <div class="stat-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                  <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                  <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                  <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                </svg>
+              </div>
+            </div>
+            <div class="stat-value">350 GB</div>
+            <div class="stat-meta">Across all plans</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <span class="stat-label">Used Space</span>
+              <div class="stat-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                  <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                  <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                  <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                </svg>
+              </div>
+            </div>
+            <div class="stat-value">142 GB</div>
+            <div class="stat-meta">40.6% utilized</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <span class="stat-label">Files Stored</span>
+              <div class="stat-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="stat-value">248</div>
+            <div class="stat-meta">Encrypted files</div>
+          </div>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+          <!-- Storage Usage -->
+          <div class="dashboard-card">
+            <div class="dashboard-card-header">
+              <h3 class="dashboard-card-title">Storage Usage</h3>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 16px;">
+              <span style="color: var(--text-secondary); font-size: 0.875rem;">Total Storage</span>
+              <span style="color: var(--text-secondary); font-size: 0.875rem;">Per-Plan Usage</span>
+            </div>
+            <div class="storage-chart">
+              <div class="chart-container">
+                <svg viewBox="0 0 100 100" style="transform: rotate(-90deg);">
+                  <circle cx="50" cy="50" r="40" fill="none" stroke="var(--border-color)" stroke-width="12"/>
+                  <circle cx="50" cy="50" r="40" fill="none" stroke="var(--accent-primary)" stroke-width="12" 
+                    stroke-dasharray="251.2" stroke-dashoffset="149" stroke-linecap="round"/>
+                </svg>
+                <div class="chart-center">
+                  <div class="chart-percentage">40.6%</div>
+                  <div class="chart-label">Used</div>
+                </div>
+              </div>
+              <div class="chart-legend">
+                <div class="legend-item">
+                  <div class="legend-dot used"></div>
+                  Used (142 GB)
+                </div>
+                <div class="legend-item">
+                  <div class="legend-dot free"></div>
+                  Free (208 GB)
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- My Active Plans -->
+          <div class="dashboard-card">
+            <div class="dashboard-card-header">
+              <h3 class="dashboard-card-title">My Active Plans</h3>
+            </div>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Plan ID</th>
+                    <th>Provider</th>
+                    <th>Storage</th>
+                    <th>Used</th>
+                    <th>Expires</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="color: var(--accent-primary);">PLN-001</td>
+                    <td>provider1@example.com</td>
+                    <td>100 GB</td>
+                    <td>
+                      <div class="progress-bar" style="width: 60px;">
+                        <div class="progress-fill" style="width: 45%;"></div>
+                      </div>
+                      <span style="font-size: 0.75rem; color: var(--text-secondary);">45 GB</span>
+                    </td>
+                    <td>Mar 15, 2024</td>
+                  </tr>
+                  <tr>
+                    <td style="color: var(--accent-primary);">PLN-002</td>
+                    <td>provider2@example.com</td>
+                    <td>200 GB</td>
+                    <td>
+                      <div class="progress-bar" style="width: 60px;">
+                        <div class="progress-fill" style="width: 33%;"></div>
+                      </div>
+                      <span style="font-size: 0.75rem; color: var(--text-secondary);">67 GB</span>
+                    </td>
+                    <td>Apr 01, 2024</td>
+                  </tr>
+                  <tr>
+                    <td style="color: var(--accent-primary);">PLN-003</td>
+                    <td>provider3@example.com</td>
+                    <td>50 GB</td>
+                    <td>
+                      <div class="progress-bar" style="width: 60px;">
+                        <div class="progress-fill" style="width: 60%;"></div>
+                      </div>
+                      <span style="font-size: 0.75rem; color: var(--text-secondary);">30 GB</span>
+                    </td>
+                    <td>Feb 28, 2024</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Browse Available Plans -->
+        <div class="dashboard-card">
+          <div class="dashboard-card-header">
+            <h3 class="dashboard-card-title">Browse Available Plans</h3>
+            <p style="color: var(--text-secondary); font-size: 0.875rem;">Find and rent storage from providers. Providers receive 90% directly to their UPI.</p>
+          </div>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Provider</th>
+                  <th>Storage</th>
+                  <th>Price</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div style="font-weight: 500;">storage.pro@example.com</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">UPI: storage@upi</div>
+                  </td>
+                  <td>500 GB</td>
+                  <td style="color: var(--accent-primary);">₹500/mo</td>
+                  <td><span class="badge badge-success">Available</span></td>
+                  <td><a href="payment.html?plan=plan-001&storage=500GB&price=500&provider=storage.pro@example.com&upi=storage@upi" class="btn btn-primary btn-sm">Rent Now</a></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="font-weight: 500;">cloud.host@example.com</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">UPI: cloud@upi</div>
+                  </td>
+                  <td>1000 GB</td>
+                  <td style="color: var(--accent-primary);">₹900/mo</td>
+                  <td><span class="badge badge-success">Available</span></td>
+                  <td><a href="payment.html?plan=plan-002&storage=1000GB&price=900&provider=cloud.host@example.com&upi=cloud@upi" class="btn btn-primary btn-sm">Rent Now</a></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="font-weight: 500;">data.vault@example.com</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">UPI: data@upi</div>
+                  </td>
+                  <td>250 GB</td>
+                  <td style="color: var(--accent-primary);">₹250/mo</td>
+                  <td><span class="badge badge-success">Available</span></td>
+                  <td><a href="payment.html?plan=plan-003&storage=250GB&price=250&provider=data.vault@example.com&upi=data@upi" class="btn btn-primary btn-sm">Rent Now</a></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="font-weight: 500;">secure.store@example.com</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">UPI: secure@upi</div>
+                  </td>
+                  <td>100 GB</td>
+                  <td style="color: var(--accent-primary);">₹100/mo</td>
+                  <td><span class="badge badge-warning">Limited</span></td>
+                  <td><a href="payment.html?plan=plan-004&storage=100GB&price=100&provider=secure.store@example.com&upi=secure@upi" class="btn btn-primary btn-sm">Rent Now</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Provider Dashboard -->
+      <div id="providerDashboard" class="hidden">
+        <div class="dashboard-header">
+          <h1 class="dashboard-title">Provider Dashboard</h1>
+          <p class="dashboard-subtitle">Manage your storage offerings</p>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-header">
+              <span class="stat-label">Listed Plans</span>
+              <div class="stat-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                  <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                  <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                  <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                </svg>
+              </div>
+            </div>
+            <div class="stat-value">5</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <span class="stat-label">Active Rentals</span>
+              <div class="stat-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </div>
+            </div>
+            <div class="stat-value">12</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <span class="stat-label">Total Storage</span>
+              <div class="stat-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                  <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                  <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                  <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                </svg>
+              </div>
+            </div>
+            <div class="stat-value">2 TB</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <span class="stat-label">Total Earnings</span>
+              <div class="stat-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                  <line x1="2" y1="10" x2="22" y2="10"></line>
+                </svg>
+              </div>
+            </div>
+            <div class="stat-value">$1,240</div>
+          </div>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+          <!-- Profile Information -->
+          <div class="dashboard-card">
+            <div class="dashboard-card-header">
+              <h3 class="dashboard-card-title">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 8px;">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                Profile Information
+              </h3>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div class="stat-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                </div>
+                <div>
+                  <div style="font-size: 0.75rem; color: var(--text-secondary);">Full Name</div>
+                  <div style="font-weight: 500;">John Doe</div>
+                </div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div class="stat-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                  </svg>
+                </div>
+                <div>
+                  <div style="font-size: 0.75rem; color: var(--text-secondary);">Email</div>
+                  <div style="font-weight: 500;">john@example.com</div>
+                </div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div class="stat-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <div style="font-size: 0.75rem; color: var(--text-secondary);">Phone</div>
+                  <div style="font-weight: 500;">+1 555-123-4567</div>
+                </div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div class="stat-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                    <line x1="2" y1="10" x2="22" y2="10"></line>
+                  </svg>
+                </div>
+                <div>
+                  <div style="font-size: 0.75rem; color: var(--text-secondary);">UPI ID (for receiving payments)</div>
+                  <div style="font-weight: 500; color: var(--accent-primary);">john@upi</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Create New Plan -->
+          <div class="dashboard-card">
+            <div class="dashboard-card-header">
+              <h3 class="dashboard-card-title">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 8px;">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                Create New Plan
+              </h3>
+            </div>
+            <form id="createPlanForm">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                <div>
+                  <label class="form-label">Storage Amount (GB)</label>
+                  <div class="form-input-wrapper">
+                    <span class="form-input-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                        <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                        <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                        <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                      </svg>
+                    </span>
+                    <input type="number" class="form-input" id="storageAmount" placeholder="e.g., 100" style="padding-left: 44px;" required>
+                  </div>
+                </div>
+                <div>
+                  <label class="form-label">Price per Month (₹)</label>
+                  <div class="form-input-wrapper">
+                    <span class="form-input-icon" style="font-size: 1rem;">₹</span>
+                    <input type="number" class="form-input" id="planPrice" placeholder="e.g., 500" style="padding-left: 44px;" required>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- UPI ID Field for Provider -->
+              <div style="margin-bottom: 16px;">
+                <label class="form-label">Your UPI ID <span style="color: var(--accent-primary);">*</span></label>
+                <div class="form-input-wrapper">
+                  <span class="form-input-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                      <line x1="2" y1="10" x2="22" y2="10"></line>
+                    </svg>
+                  </span>
+                  <input type="text" class="form-input" id="providerUpiId" placeholder="yourname@upi or yourname@bank" style="padding-left: 44px;" required>
+                </div>
+                <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 6px;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                  </svg>
+                  Payments will be split: 90% to you, 10% platform fee
+                </p>
+              </div>
+              
+              <!-- Payment Split Preview -->
+              <div style="background: var(--bg-input); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 16px; margin-bottom: 16px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                  <span style="font-size: 0.875rem; color: var(--text-secondary);">Plan Price:</span>
+                  <span style="font-weight: 500;" id="previewPrice">₹0</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                  <span style="font-size: 0.875rem; color: var(--text-secondary);">Your Earnings (90%):</span>
+                  <span style="font-weight: 600; color: var(--accent-primary);" id="previewEarnings">₹0</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span style="font-size: 0.875rem; color: var(--text-secondary);">Platform Fee (10%):</span>
+                  <span style="font-weight: 500; color: var(--text-muted);" id="previewFee">₹0</span>
+                </div>
+              </div>
+              
+              <button type="submit" class="btn btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                Create Plan
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- My Listed Plans -->
+        <div class="dashboard-card" style="margin-top: 24px;">
+          <div class="dashboard-card-header">
+            <h3 class="dashboard-card-title">My Listed Plans</h3>
+            <p style="color: var(--text-secondary); font-size: 0.875rem;">Manage your storage offerings</p>
+          </div>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Plan ID</th>
+                  <th>Storage</th>
+                  <th>Price</th>
+                  <th>Status</th>
+                  <th>Active Rentals</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="color: var(--accent-primary);">PRV-001</td>
+                  <td>500 GB</td>
+                  <td style="color: var(--accent-primary);">$25/mo</td>
+                  <td><span class="badge badge-success">Active</span></td>
+                  <td>8</td>
+                </tr>
+                <tr>
+                  <td style="color: var(--accent-primary);">PRV-002</td>
+                  <td>1000 GB</td>
+                  <td style="color: var(--accent-primary);">$45/mo</td>
+                  <td><span class="badge badge-success">Active</span></td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td style="color: var(--accent-primary);">PRV-003</td>
+                  <td>250 GB</td>
+                  <td style="color: var(--accent-primary);">$12/mo</td>
+                  <td><span class="badge badge-warning">Pending</span></td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td style="color: var(--accent-primary);">PRV-004</td>
+                  <td>100 GB</td>
+                  <td style="color: var(--accent-primary);">$5/mo</td>
+                  <td><span class="badge badge-success">Active</span></td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td style="color: var(--accent-primary);">PRV-005</td>
+                  <td>2000 GB</td>
+                  <td style="color: var(--accent-primary);">$89/mo</td>
+                  <td><span class="badge badge-danger">Inactive</span></td>
+                  <td>0</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <div class="logo-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+              </svg>
+            </div>
+            Disk Space Rental
+          </a>
+          <p>Secure, encrypted, and decentralized storage solutions. Rent or provide disk space with blockchain-backed security.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="GitHub">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+              </svg>
+            </a>
+            <a href="#" aria-label="Twitter">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+              </svg>
+            </a>
+            <a href="#" aria-label="LinkedIn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-links-col">
+          <h4 class="footer-title">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="register.html">Get Started</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4 class="footer-title">Legal</h4>
+          <ul class="footer-links">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Cookie Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2024 Disk Space Rental System. All rights reserved.</p>
+        <p class="footer-meta">Demo project for academic purposes</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    // View switching
+    function switchView(view) {
+      const renterDashboard = document.getElementById('renterDashboard');
+      const providerDashboard = document.getElementById('providerDashboard');
+      const renterToggle = document.getElementById('renterToggle');
+      const providerToggle = document.getElementById('providerToggle');
+      
+      if (view === 'renter') {
+        renterDashboard.classList.remove('hidden');
+        providerDashboard.classList.add('hidden');
+        renterToggle.classList.add('active');
+        providerToggle.classList.remove('active');
+      } else {
+        renterDashboard.classList.add('hidden');
+        providerDashboard.classList.remove('hidden');
+        renterToggle.classList.remove('active');
+        providerToggle.classList.add('active');
+      }
+    }
+
+    // Payment preview update
+    const planPriceInput = document.getElementById('planPrice');
+    const previewPrice = document.getElementById('previewPrice');
+    const previewEarnings = document.getElementById('previewEarnings');
+    const previewFee = document.getElementById('previewFee');
+    
+    planPriceInput.addEventListener('input', function() {
+      const price = parseFloat(this.value) || 0;
+      const earnings = Math.round(price * 0.9);
+      const fee = Math.round(price * 0.1);
+      
+      previewPrice.textContent = '₹' + price;
+      previewEarnings.textContent = '₹' + earnings;
+      previewFee.textContent = '₹' + fee;
+    });
+
+    // Create plan form handler
+    document.getElementById('createPlanForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const storageAmount = document.getElementById('storageAmount').value;
+      const planPrice = document.getElementById('planPrice').value;
+      const providerUpiId = document.getElementById('providerUpiId').value;
+      
+      // Validate UPI ID format
+      const upiRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9]+$/;
+      if (!upiRegex.test(providerUpiId)) {
+        alert('Please enter a valid UPI ID (e.g., name@upi or name@bank)');
+        return;
+      }
+      
+      // TODO: Integrate with Firebase Firestore
+      // Example:
+      // try {
+      //   await firebase.firestore().collection('plans').add({
+      //     providerId: firebase.auth().currentUser.uid,
+      //     providerEmail: firebase.auth().currentUser.email,
+      //     providerUpiId: providerUpiId,
+      //     storageAmount: parseInt(storageAmount),
+      //     price: parseFloat(planPrice),
+      //     currency: 'INR',
+      //     status: 'active',
+      //     createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      //   });
+      //   alert('Plan created successfully!');
+      //   // Clear form
+      //   document.getElementById('createPlanForm').reset();
+      //   previewPrice.textContent = '₹0';
+      //   previewEarnings.textContent = '₹0';
+      //   previewFee.textContent = '₹0';
+      // } catch (error) {
+      //   alert(error.message);
+      // }
+      
+      console.log('Create plan:', { storageAmount, planPrice, providerUpiId });
+      alert('Plan created successfully! (Demo)\n\nUPI ID: ' + providerUpiId + '\nYou will receive 90% of all payments to this UPI ID.');
+    });
+  </script>
+</body>
+</html>

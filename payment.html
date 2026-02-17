@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirm Payment - Disk Space Rental</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Razorpay SDK -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+          </svg>
+        </div>
+        Disk Space Rental
+      </a>
+      <ul class="nav-links">
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="upload.html">Upload</a></li>
+        <li><a href="files.html">My Files</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="index.html" class="btn btn-ghost" onclick="logout()">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Payment Page -->
+  <div class="dashboard">
+    <div class="container">
+      <div style="margin-bottom: 24px;">
+        <a href="dashboard.html" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary);">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          Back to Dashboard
+        </a>
+      </div>
+
+      <div class="form-container" style="max-width: 560px;">
+        <div class="form-card">
+          <div class="form-header">
+            <div class="logo-icon" style="margin: 0 auto 16px; width: 56px; height: 56px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                <line x1="2" y1="10" x2="22" y2="10"></line>
+              </svg>
+            </div>
+            <h1 class="form-title">Confirm Rental Payment</h1>
+            <p class="form-subtitle">Review your storage rental details</p>
+          </div>
+
+          <!-- Payment Summary -->
+          <div class="payment-summary">
+            <div class="payment-item">
+              <div class="payment-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                  <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                  <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                  <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                </svg>
+              </div>
+              <div class="payment-info">
+                <div class="payment-label">Storage</div>
+                <div class="payment-value" id="planStorage">100 GB</div>
+              </div>
+            </div>
+
+            <div class="payment-item">
+              <div class="payment-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="1" x2="12" y2="23"></line>
+                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                </svg>
+              </div>
+              <div class="payment-info">
+                <div class="payment-label">Price</div>
+                <div class="payment-value" id="planPrice">₹500/month</div>
+              </div>
+            </div>
+
+            <div class="payment-item">
+              <div class="payment-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+              </div>
+              <div class="payment-info">
+                <div class="payment-label">Duration</div>
+                <div class="payment-value">1 Month</div>
+              </div>
+            </div>
+
+            <div class="payment-item">
+              <div class="payment-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </div>
+              <div class="payment-info">
+                <div class="payment-label">Provider</div>
+                <div class="payment-value" id="providerEmail">provider@example.com</div>
+              </div>
+            </div>
+
+            <!-- Provider UPI ID -->
+            <div class="payment-item">
+              <div class="payment-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                  <line x1="2" y1="10" x2="22" y2="10"></line>
+                </svg>
+              </div>
+              <div class="payment-info">
+                <div class="payment-label">Provider UPI</div>
+                <div class="payment-value" id="providerUpi" style="color: var(--accent-primary);">provider@upi</div>
+              </div>
+            </div>
+
+            <div class="payment-total">
+              <span class="payment-total-label">Total Amount</span>
+              <span class="payment-total-value" id="totalAmount">₹500</span>
+            </div>
+          </div>
+
+          <!-- Payment Split Breakdown -->
+          <div style="background: var(--bg-input); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 16px; margin: 24px 0;">
+            <h4 style="font-size: 0.875rem; margin-bottom: 12px; color: var(--text-secondary);">Payment Breakdown</h4>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-size: 0.875rem;">Provider Earnings (90%)</span>
+              <span style="font-weight: 600; color: var(--accent-primary);" id="providerShare">₹450</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 0.875rem;">Platform Fee (10%)</span>
+              <span style="font-weight: 500; color: var(--text-muted);" id="platformShare">₹50</span>
+            </div>
+          </div>
+
+          <!-- Security Notice -->
+          <div class="security-notice">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+            <div>
+              <div class="security-notice-title">Secure Razorpay Payment</div>
+              <div class="security-notice-text">Your payment is processed securely via Razorpay. Provider receives 90% directly to their UPI ID.</div>
+            </div>
+          </div>
+
+          <!-- Payment Form -->
+          <form id="paymentForm">
+            <button type="submit" class="btn btn-primary" style="width: 100%;" id="payButton">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                <line x1="2" y1="10" x2="22" y2="10"></line>
+              </svg>
+              Pay with Razorpay
+            </button>
+          </form>
+
+          <p style="text-align: center; margin-top: 16px; color: var(--text-muted); font-size: 0.75rem;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+            Secured by Razorpay. Provider gets paid instantly via UPI.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer" style="margin-top: 40px;">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <div class="logo-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+              </svg>
+            </div>
+            Disk Space Rental
+          </a>
+          <p>Secure, encrypted, and decentralized storage solutions. Rent or provide disk space with blockchain-backed security.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="GitHub">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+              </svg>
+            </a>
+            <a href="#" aria-label="Twitter">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+              </svg>
+            </a>
+            <a href="#" aria-label="LinkedIn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-links-col">
+          <h4 class="footer-title">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="register.html">Get Started</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4 class="footer-title">Legal</h4>
+          <ul class="footer-links">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Cookie Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2024 Disk Space Rental System. All rights reserved.</p>
+        <p class="footer-meta">Demo project for academic purposes</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    // Parse URL parameters
+    function getUrlParams() {
+      const params = new URLSearchParams(window.location.search);
+      return {
+        planId: params.get('plan') || 'plan-001',
+        storage: params.get('storage') || '100GB',
+        price: parseInt(params.get('price')) || 500,
+        providerEmail: params.get('provider') || 'provider@example.com',
+        providerUpiId: params.get('upi') || 'provider@upi'
+      };
+    }
+
+    // Payment details from URL params or defaults
+    const urlParams = getUrlParams();
+    const paymentDetails = {
+      planId: urlParams.planId,
+      storage: urlParams.storage,
+      price: urlParams.price,
+      duration: '1 Month',
+      providerEmail: urlParams.providerEmail,
+      providerUpiId: urlParams.providerUpiId,
+      providerId: 'provider-user-id'
+    };
+
+    // Calculate payment split
+    const providerShare = Math.round(paymentDetails.price * 0.9);
+    const platformShare = Math.round(paymentDetails.price * 0.1);
+
+    // Update UI with payment details
+    document.getElementById('planStorage').textContent = paymentDetails.storage;
+    document.getElementById('planPrice').textContent = '₹' + paymentDetails.price + '/month';
+    document.getElementById('providerEmail').textContent = paymentDetails.providerEmail;
+    document.getElementById('providerUpi').textContent = paymentDetails.providerUpiId;
+    document.getElementById('totalAmount').textContent = '₹' + paymentDetails.price;
+    document.getElementById('providerShare').textContent = '₹' + providerShare;
+    document.getElementById('platformShare').textContent = '₹' + platformShare;
+
+    // Razorpay Configuration
+    // TODO: Replace with your actual Razorpay Key ID
+    const RAZORPAY_KEY_ID = 'rzp_test_YOUR_KEY_ID';
+
+    // Payment form handler
+    document.getElementById('paymentForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const payButton = document.getElementById('payButton');
+      payButton.disabled = true;
+      payButton.innerHTML = '<span style="animation: pulse 1s infinite;">Processing...</span>';
+
+      // TODO: Create order on your backend server
+      // const orderResponse = await fetch('/api/create-order', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({
+      //     amount: paymentDetails.price * 100, // Razorpay expects amount in paise
+      //     currency: 'INR',
+      //     receipt: 'receipt_' + Date.now(),
+      //     notes: {
+      //       planId: paymentDetails.planId,
+      //       providerId: paymentDetails.providerId,
+      //       providerUpiId: paymentDetails.providerUpiId
+      //     }
+      //   })
+      // });
+      // const orderData = await orderResponse.json();
+
+      // For demo, simulate order creation
+      const orderData = {
+        id: 'order_' + Date.now(),
+        amount: paymentDetails.price * 100,
+        currency: 'INR'
+      };
+
+      // Initialize Razorpay
+      const options = {
+        key: RAZORPAY_KEY_ID,
+        amount: orderData.amount,
+        currency: orderData.currency,
+        name: 'Disk Space Rental',
+        description: paymentDetails.storage + ' Storage Plan',
+        order_id: orderData.id,
+        handler: async function (response) {
+          // Payment successful
+          console.log('Payment successful:', response);
+          
+          // TODO: Verify payment on backend and process split
+          // const verifyResponse = await fetch('/api/verify-payment', {
+          //   method: 'POST',
+          //   headers: { 'Content-Type': 'application/json' },
+          //   body: JSON.stringify({
+          //     razorpay_payment_id: response.razorpay_payment_id,
+          //     razorpay_order_id: response.razorpay_order_id,
+          //     razorpay_signature: response.razorpay_signature,
+          //     providerUpiId: paymentDetails.providerUpiId,
+          //     providerShare: providerShare,
+          //     platformShare: platformShare
+          //   })
+          // });
+          
+          // TODO: Save rental to Firestore
+          // await firebase.firestore().collection('rentals').add({
+          //   userId: firebase.auth().currentUser.uid,
+          //   planId: paymentDetails.planId,
+          //   providerId: paymentDetails.providerId,
+          //   amount: paymentDetails.price,
+          //   providerShare: providerShare,
+          //   platformShare: platformShare,
+          //   status: 'active',
+          //   paymentId: response.razorpay_payment_id,
+          //   orderId: response.razorpay_order_id,
+          //   createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          // });
+
+          alert('Payment successful!\n\nPayment ID: ' + response.razorpay_payment_id + 
+                '\nProvider will receive ₹' + providerShare + ' to their UPI: ' + paymentDetails.providerUpiId);
+          window.location.href = 'dashboard.html';
+        },
+        prefill: {
+          name: 'John Doe', // TODO: Get from user profile
+          email: 'john@example.com', // TODO: Get from user profile
+          contact: '9999999999' // TODO: Get from user profile
+        },
+        notes: {
+          planId: paymentDetails.planId,
+          providerId: paymentDetails.providerId,
+          providerUpiId: paymentDetails.providerUpiId,
+          providerShare: providerShare,
+          platformShare: platformShare
+        },
+        theme: {
+          color: '#00d4aa'
+        },
+        modal: {
+          ondismiss: function() {
+            payButton.disabled = false;
+            payButton.innerHTML = `
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                <line x1="2" y1="10" x2="22" y2="10"></line>
+              </svg>
+              Pay with Razorpay
+            `;
+          }
+        }
+      };
+
+      // For demo mode (when Razorpay key is not set)
+      if (RAZORPAY_KEY_ID === 'rzp_test_YOUR_KEY_ID') {
+        console.log('Demo mode - Razorpay not configured');
+        console.log('Order details:', orderData);
+        console.log('Payment split - Provider: ₹' + providerShare + ', Platform: ₹' + platformShare);
+        
+        setTimeout(() => {
+          alert('Demo Payment Successful!\n\n' +
+                'Total Amount: ₹' + paymentDetails.price + '\n' +
+                'Provider Share (90%): ₹' + providerShare + '\n' +
+                'Platform Fee (10%): ₹' + platformShare + '\n\n' +
+                'Provider UPI: ' + paymentDetails.providerUpiId + '\n\n' +
+                'In production, this would open Razorpay checkout and process the payment.');
+          window.location.href = 'dashboard.html';
+        }, 1500);
+        return;
+      }
+
+      const rzp = new Razorpay(options);
+      rzp.open();
+    });
+  </script>
+</body>
+</html>
